@@ -51,5 +51,7 @@ void findMax(const string& filename) {
 }
 
 int main(){
+    //clock_t tStart = clock();
     findMax("CTU-13.csv");
+    //printf("Time taken: %.2fs\n", (double)(clock() - tStart)/CLOCKS_PER_SEC);
 }
