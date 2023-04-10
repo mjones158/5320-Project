@@ -26,9 +26,10 @@ private:
   // The size of the sliding window
   size_t N; 
 
-  // A mapping from keyFields to the associated max. ******************************
+  // A mapping from keyFields to the associated max. ******************************  <T>?
   std::map<std::string, std::shared_ptr<currentMax<T>>> allWindows;
 
+  // store current max and value to be compared
   std::vector<int> valueStore;
 
   // the current max
@@ -54,9 +55,14 @@ public:
     
   }
 
-  void setMax(int newMAx)
+  void setMax(int newMax)
   {
     max = newMax;
+  }
+
+  int getMax()
+  {
+    return max;
   }
 
    
@@ -65,6 +71,7 @@ public:
     if(valuestore.empty() == true)
     {
       valueStore.pushback(data);
+      setMax(valueStore[0]);
     }
     else
     {
@@ -79,6 +86,7 @@ public:
         valueStore.pop_back()
       }
     }
+    return;
   }
 
 
