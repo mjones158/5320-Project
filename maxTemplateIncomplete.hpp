@@ -27,9 +27,12 @@ private:
   size_t N; 
 
   // A mapping from keyFields to the associated max. ******************************
-  std::map<std::string, std::shared_ptr<Max<T>>> allWindows;
+  std::map<std::string, std::shared_ptr<currentMax<T>>> allWindows;
 
   std::vector<int> valueStore;
+
+  // the current max
+  int max;
 
 
 public:
@@ -41,7 +44,7 @@ public:
    *                   by this operator.
    * \param identifier A unique identifier associated with this operator.
    */
-  currentMax(size_t N,
+  currentMax(size_t N, //int max
                           size_t nodeId,
                           std::shared_ptr<FeatureMap> featureMap,
                           std::string identifier) :
@@ -50,22 +53,26 @@ public:
   {
     
   }
-  /**
-   *\param max The current max
-   * 
-   */  
-  checkMax(size_t compare)                                        
+
+  void setMax(int newMAx)
+  {
+    max = newMax;
+  }
+
+   
+  checkMax(size_t data)                                        
   {
     if(valuestore.empty() == true)
     {
-      valueStore.pushback(compare);
+      valueStore.pushback(data);
     }
     else
     {
-      valuestore.pushback(compare)
+      valuestore.pushback(data)
       if(valueStore[0] < valueStore[1])
       {
         valueStore.erase(begin);
+        setMax(valueStore[0]);
       }
       else
       {
@@ -98,6 +105,10 @@ public:
                   new ExponentialHistogram<T>(N, k));
       allWindows[key] = eh;
     }
+
+    // auto eh = std::shared_ptr<currentMax<  ?  >>(
+    //              new currentMax< ? >(values to be passed));
+    //  allWindows[key] = eh;
 
     // Update the data structure **********************************************
     T value = std::get<valueField>(edge.tuple);
