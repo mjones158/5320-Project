@@ -6,7 +6,6 @@
 
 #include <sam/AbstractConsumer.hpp>
 #include <sam/BaseComputation.hpp>
-#include <sam/ExponentialHistogram.hpp>
 #include <sam/Features.hpp>
 #include <sam/Util.hpp>
 #include <sam/FeatureProducer.hpp>
@@ -45,14 +44,15 @@ public:
    *                   by this operator.
    * \param identifier A unique identifier associated with this operator.
    */
-  currentMax(size_t N, //int max
+  currentMax(size_t N, //int newMax
                           size_t nodeId,
                           std::shared_ptr<FeatureMap> featureMap,
                           std::string identifier) :
                           BaseComputation(nodeId, featureMap, identifier) 
                                           
   {
-    
+    // max = newMax;
+    // this->N = N; ?
   }
 
   void setMax(int newMax)
@@ -132,7 +132,7 @@ public:
     // identify the feature.
     this->featureMap->updateInsert(key, this->identifier, feature);
 
-    this->notifySubscribers(edge.id, currentSum);
+    this->notifySubscribers(edge.id, currentMax);
 
     return true;
   }
@@ -143,3 +143,4 @@ public:
 
 }
 #endif
+
