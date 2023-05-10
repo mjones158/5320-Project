@@ -69,7 +69,7 @@ public:
     // Generates unique key from key fields
     std::string key = generateKey<keyFields...>(edge.tuple);
 
-    // Create an exponential histogram if it doesn't exist for the given key 
+    // Create the data structure 
     if (allWindows.count(key) == 0) {
       auto eh = std::shared_ptr<std::vector<T>>(N); //**
       allWindows[key] = eh;
